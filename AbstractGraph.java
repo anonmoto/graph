@@ -101,21 +101,21 @@ abstract class AbstractGraph<T> {
 	 * @return enriched intermediate nodes list
 	 */
 	private boolean isFound(List<T> path, Set<T> traversedVertices, Vertex<T> from, T toId) {
-    	if (from.getId().equals(toId)) {
-    		return true;
-		}
-    	for (T childId : from.getConnectedTo()) {
-    		if (traversedVertices.contains(childId)) {
-    			continue;
-			}
-    		traversedVertices.add(childId);
-    		if (isFound(path, traversedVertices, verticesById.get(childId), toId)) {
-    			if (!childId.equals(toId)) {
-    				path.add(childId);
-				}
+    		if (from.getId().equals(toId)) {
     			return true;
+		}
+    		for (T childId : from.getConnectedTo()) {
+    			if (traversedVertices.contains(childId)) {
+    				continue;
+			}
+	    		traversedVertices.add(childId);
+    			if (isFound(path, traversedVertices, verticesById.get(childId), toId)) {
+    				if (!childId.equals(toId)) {
+    					path.add(childId);
+				}
+    				return true;
 			}
 		}
-    	return false;
+    		return false;
 	}
 }
